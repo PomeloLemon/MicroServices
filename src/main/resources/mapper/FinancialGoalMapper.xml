@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+</beans>
+
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="microservices.project.target.mapper.FinancialGoalMapper">
+  <insert id="insert" parameterType="microservices.project.target.entity.FinancialGoal">
+    INSERT INTO FinancialGoals(userId, description, targetAmount, currentAmount, startDate, endDate, status)
+    VALUES(#{userId}, #{description}, #{targetAmount}, #{currentAmount}, #{startDate}, #{endDate}, #{status})
+  </insert>
+
+  <select id="selectById" resultType="microservices.project.target.entity.FinancialGoal">
+    SELECT * FROM FinancialGoals WHERE goalId = #{goalId}
+  </select>
+
+  <update id="updateById" parameterType="microservices.project.target.entity.FinancialGoal">
+    UPDATE FinancialGoals SET description = #{description}, targetAmount = #{targetAmount},
+    currentAmount = #{currentAmount}, startDate = #{startDate}, endDate = #{endDate}, status = #{status}
+    WHERE goalId = #{goalId}
+  </update>
+
+  <delete id="deleteById">
+    DELETE FROM FinancialGoals WHERE goalId = #{goalId}
+  </delete>
+
+  <select id="selectAll" resultType="microservices.project.target.entity.FinancialGoal">
+    SELECT * FROM FinancialGoals
+  </select>
+</mapper>
