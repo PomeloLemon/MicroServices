@@ -1,32 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdxb.springbootexample.dao.FinancialGoalDao">
 
-</beans>
+    <!-- 映射实体类属性到数据库表列 -->
+    <resultMap id="financialGoalMap" type="com.sdxb.springbootexample.entity.FinancialGoal">
+        <id column="GoalID" property="goalId" javaType="java.lang.Integer"/>
+        <result column="UserID" property="userId" javaType="java.lang.Integer"/>
+        <result column="Description" property="description" javaType="java.lang.String"/>
+        <result column="TargetAmount" property="targetAmount" javaType="java.math.BigDecimal"/>
+        <result column="CurrentAmount" property="currentAmount" javaType="java.math.BigDecimal"/>
+        <result column="StartDate" property="startDate" javaType="java.util.Date"/>
+        <result column="EndDate" property="endDate" javaType="java.util.Date"/>
+    </resultMap>
 
-        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="microservices.project.target.mapper.FinancialGoalMapper">
-  <insert id="insert" parameterType="microservices.project.target.entity.FinancialGoal">
-    INSERT INTO FinancialGoals(userId, description, targetAmount, currentAmount, startDate, endDate, status)
-    VALUES(#{userId}, #{description}, #{targetAmount}, #{currentAmount}, #{startDate}, #{endDate}, #{status})
-  </insert>
+    <!-- 查询所有财务目标 -->
+    <select id="findAll" parameterType="java.lang.Integer" resultMap="financialGoalMap">
+        SELECT * FROM FinancialGoal WHERE UserID = #{userId}
+    </select>
 
-  <select id="selectById" resultType="microservices.project.target.entity.FinancialGoal">
-    SELECT * FROM FinancialGoals WHERE goalId = #{goalId}
-  </select>
+    <!-- 根据ID查询财务目标 -->
+    <select id="findById" parameterType="java.lang.Integer" resultMap="financialGoalMap">
+        SELECT * FROM FinancialGoal WHERE GoalID = #{goalId}
+    </select>
 
-  <update id="updateById" parameterType="microservices.project.target.entity.FinancialGoal">
-    UPDATE FinancialGoals SET description = #{description}, targetAmount = #{targetAmount},
-    currentAmount = #{currentAmount}, startDate = #{startDate}, endDate = #{endDate}, status = #{status}
-    WHERE goalId = #{goalId}
-  </update>
+    <!-- 添加新的财务目标 -->
+    <insert id="insert" parameterType="com.sdxb.springbootexample.entity.FinancialGoal"
+            useGeneratedKeys="true" keyProperty="goalId">
+        INSERT INTO FinancialGoal (UserID, Description, TargetAmount, CurrentAmount, StartDate, EndDate)
+        VALUES (#{userId}, #{description}, #{targetAmount}, #{currentAmount}, #{startDate}, #{endDate})
+    </insert>
 
-  <delete id="deleteById">
-    DELETE FROM FinancialGoals WHERE goalId = #{goalId}
-  </delete>
 
-  <select id="selectAll" resultType="microservices.project.target.entity.FinancialGoal">
-    SELECT * FROM FinancialGoals
-  </select>
+    <!-- 更新财务目标 -->
+    <update id="update" parameterType="com.sdxb.springbootexample.entity.FinancialGoal">
+        UPDATE FinancialGoal
+        SET
+            UserID = #{userId},
+            Description = #{description},
+            TargetAmount = #{targetAmount},
+            CurrentAmount = #{currentAmount},
+            StartDate = #{startDate},
+            EndDate = #{endDate}
+        WHERE GoalID = #{goalId}
+    </update>
+
+    <!-- 根据ID删除财务目标 -->
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM FinancialGoal WHERE GoalID = #{goalId}
+    </delete>
+
 </mapper>
