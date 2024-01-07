@@ -20,6 +20,12 @@ public class FinancialGoalController {
     @Resource
     private AccountService accountService; // 添加账户服务
 
+
+    @GetMapping("/")
+    public String defaultHTML() {
+        return "default";
+    }
+
     // 显示目标列表
     @GetMapping("/target")
     public String target(Model model) {
