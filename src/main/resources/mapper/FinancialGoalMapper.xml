@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sdxb.springbootexample.dao.FinancialGoalDao">
+<mapper namespace="com.sdxb.springbootexample.dao.FinancialGoalsDao">
 
     <!-- 映射实体类属性到数据库表列 -->
-    <resultMap id="financialGoalMap" type="com.sdxb.springbootexample.entity.FinancialGoal">
+    <resultMap id="FinancialGoalsMap" type="com.sdxb.springbootexample.entity.FinancialGoals">
         <id column="GoalID" property="goalId" javaType="java.lang.Integer"/>
         <result column="UserID" property="userId" javaType="java.lang.Integer"/>
         <result column="Description" property="description" javaType="java.lang.String"/>
@@ -14,26 +14,26 @@
     </resultMap>
 
     <!-- 查询所有财务目标 -->
-    <select id="findAll" parameterType="java.lang.Integer" resultMap="financialGoalMap">
-        SELECT * FROM FinancialGoal WHERE UserID = #{userId}
+    <select id="findAll" parameterType="java.lang.Integer" resultMap="FinancialGoalsMap">
+        SELECT * FROM FinancialGoals WHERE UserID = #{userId}
     </select>
 
     <!-- 根据ID查询财务目标 -->
-    <select id="findById" parameterType="java.lang.Integer" resultMap="financialGoalMap">
-        SELECT * FROM FinancialGoal WHERE GoalID = #{goalId}
+    <select id="findById" parameterType="java.lang.Integer" resultMap="FinancialGoalsMap">
+        SELECT * FROM FinancialGoals WHERE GoalID = #{goalId}
     </select>
 
     <!-- 添加新的财务目标 -->
-    <insert id="insert" parameterType="com.sdxb.springbootexample.entity.FinancialGoal"
+    <insert id="insert" parameterType="com.sdxb.springbootexample.entity.FinancialGoals"
             useGeneratedKeys="true" keyProperty="goalId">
-        INSERT INTO FinancialGoal (UserID, Description, TargetAmount, CurrentAmount, StartDate, EndDate)
+        INSERT INTO FinancialGoals (UserID, Description, TargetAmount, CurrentAmount, StartDate, EndDate)
         VALUES (#{userId}, #{description}, #{targetAmount}, #{currentAmount}, #{startDate}, #{endDate})
     </insert>
 
 
     <!-- 更新财务目标 -->
-    <update id="update" parameterType="com.sdxb.springbootexample.entity.FinancialGoal">
-        UPDATE FinancialGoal
+    <update id="update" parameterType="com.sdxb.springbootexample.entity.FinancialGoals">
+        UPDATE FinancialGoals
         SET
             UserID = #{userId},
             Description = #{description},
@@ -46,7 +46,7 @@
 
     <!-- 根据ID删除财务目标 -->
     <delete id="delete" parameterType="java.lang.Integer">
-        DELETE FROM FinancialGoal WHERE GoalID = #{goalId}
+        DELETE FROM FinancialGoals WHERE GoalID = #{goalId}
     </delete>
 
 </mapper>
