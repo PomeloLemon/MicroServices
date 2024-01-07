@@ -2,9 +2,8 @@ package com.sdxb.springbootexample.service;
 
 import com.sdxb.springbootexample.dao.FinancialGoalDao;
 import com.sdxb.springbootexample.entity.FinancialGoal;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service("financialgoalService")

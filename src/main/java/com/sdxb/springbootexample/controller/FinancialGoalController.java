@@ -4,10 +4,11 @@ package com.sdxb.springbootexample.controller;
 import com.sdxb.springbootexample.entity.FinancialGoal;
 import com.sdxb.springbootexample.service.FinancialGoalService;
 import com.sdxb.springbootexample.service.AccountService; // 假设你的AccountService已经存在
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import javax.annotation.Resource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
