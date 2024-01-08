@@ -3,7 +3,7 @@ target/classes
 target/generated-sources
 target/maven-status
 target/maven-archiver
-target/Investment-1.0-SNAPSHOT.jar.original
+target/FinancialGoals-1.0-SNAPSHOT.jar.original
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
