@@ -9,7 +9,7 @@
         <version>3.0.0</version>
         <relativePath/>
     </parent>
-    <groupId>com.sdxb.springbootexample</groupId>
+    <groupId>com.sdxb</groupId>
     <artifactId>FinancialGoals</artifactId>
     <version>1.0-SNAPSHOT</version>
 
