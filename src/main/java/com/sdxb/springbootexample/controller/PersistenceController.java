@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 public class PersistenceController {
 
     @GetMapping("/insertGoal/{goal}")
-    public ResponseEntity<String> createGoals(@PathVariable String goal) {
+    public ResponseEntity<String> createGoals(@PathVariable String goal) throws SQLException {
         try {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
@@ -34,7 +35,7 @@ public class PersistenceController {
                     + "" + fgoal.getTargetAmount() + ","
                     + "" + fgoal.getCurrentAmount() + ","
                     + "'" + fgoal.getStartDate() + "',"
-                    + "'" + fgoal.getEndDate() + "',"
+                    + "'" + fgoal.getEndDate() + "'"
                     + ");");
             return new ResponseEntity<>("Created", HttpStatus.OK);
         } catch (SQLException e) {
@@ -51,6 +52,7 @@ public class PersistenceController {
                     "SELECT GoalID, UserID, Description, TargetAmount, CurrentAmount, StartDate, EndDate FROM FinancialGoals" +
                             " WHERE UserId = '" + userId + "';");
             List<FinancialGoal> list = new LinkedList<>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             while (result.next()) {
                 FinancialGoal fgoal = new FinancialGoal(
                         result.getInt("GoalID"),
@@ -58,8 +60,8 @@ public class PersistenceController {
                         result.getString("Description"),
                         result.getBigDecimal("TargetAmount"),
                         result.getBigDecimal("CurrentAmount"),
-                        result.getDate("StartDate"),
-                        result.getDate("EndDate")
+                        dateFormat.format(result.getDate("StartDate")),
+                        dateFormat.format(result.getDate("EndDate"))
                 );
                 list.add(fgoal);
             }
@@ -75,12 +77,12 @@ public class PersistenceController {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
             Statement statement = connection.createStatement();
-            statement.executeUpdate("UPDATE FinancialGoals SET"
-                    + " Description = '" + fgoal.getDescription() + "',"
+            statement.executeUpdate("UPDATE FinancialGoals SET "
+                    + "Description = '" + fgoal.getDescription() + "',"
                     + "TargetAmount = " + fgoal.getTargetAmount() + ","
                     + "CurrentAmount = " + fgoal.getCurrentAmount() + ","
                     + "StartDate = '" + fgoal.getStartDate() + "',"
-                    + "EndDate = '" + fgoal.getEndDate() + "',"
+                    + "EndDate = '" + fgoal.getEndDate() + "'"
                     + "WHERE GoalID = " + fgoal.getGoalId() + ","
                     + "AND UserID = '" + fgoal.getUserId() + "';");
             return new ResponseEntity<>("Updated", HttpStatus.OK);

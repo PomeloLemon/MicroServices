@@ -9,14 +9,14 @@ public class FinancialGoal {
     private final String description; // 财务目标的描述
     private final BigDecimal targetAmount; // 目标金额
     private final BigDecimal currentAmount; // 当前达到的金额
-    private final Date startDate; // 财务目标的开始日期
-    private final Date endDate; // 财务目标的结束日期
+    private final String startDate; // 财务目标的开始日期
+    private final String endDate; // 财务目标的结束日期
 
 
     // All arguments constructor
     public FinancialGoal(Integer goalId, String userId, String description,
                          BigDecimal targetAmount, BigDecimal currentAmount,
-                         Date startDate, Date endDate) {
+                         String startDate, String endDate) {
         this.goalId = goalId;
         this.userId = userId;
         this.description = description;
@@ -48,11 +48,11 @@ public class FinancialGoal {
         return currentAmount;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
