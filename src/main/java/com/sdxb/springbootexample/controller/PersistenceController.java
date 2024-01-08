@@ -1,7 +1,6 @@
 package com.sdxb.springbootexample.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.sdxb.springbootexample.entity.FinancialGoal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +36,7 @@ public class PersistenceController {
             connection.close();
             return new ResponseEntity<>("Created", HttpStatus.OK);
         } catch (SQLException e) {
-            return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Database Error, please try later", HttpStatus.OK);
         }
     }
 
