@@ -12,9 +12,10 @@
     <groupId>com.sdxb</groupId>
     <artifactId>FinancialGoals</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>FinancialGoals</name>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>
