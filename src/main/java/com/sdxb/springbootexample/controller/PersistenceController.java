@@ -21,8 +21,8 @@ import java.util.List;
 @RestController
 public class PersistenceController {
 
-    @PostMapping("/insertGoal")
-    public ResponseEntity<String> createGoals(@RequestBody String goal) {
+    @GetMapping("/insertGoal/{goal}")
+    public ResponseEntity<String> createGoals(@PathVariable String goal) {
         try {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
@@ -69,8 +69,8 @@ public class PersistenceController {
         }
     }
 
-    @PostMapping("/editGoal")
-    public ResponseEntity<String> updateGoal(@RequestBody String goal) {
+    @GetMapping("/editGoal/{goal}")
+    public ResponseEntity<String> updateGoal(@PathVariable String goal) {
         try {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
@@ -89,8 +89,8 @@ public class PersistenceController {
         }
     }
 
-    @PostMapping("/deleteGoal")
-    public ResponseEntity<String> deleteGoal(@RequestBody String Ids) {
+    @GetMapping("/deleteGoal/{Ids}")
+    public ResponseEntity<String> deleteGoal(@PathVariable String Ids) {
         try {
             Type StringList = new TypeToken<ArrayList<String>>() {
             }.getType();
@@ -106,8 +106,8 @@ public class PersistenceController {
         }
     }
 
-    @PostMapping("/deleteAll")
-    public ResponseEntity<String> deleteAllGoals(@RequestBody String Id) {
+    @GetMapping("/deleteAll/{Id}")
+    public ResponseEntity<String> deleteAllGoals(@PathVariable String Id) {
         try {
             Connection connection = FinancialGoalsDB().getConnection();
             Statement statement = connection.createStatement();
