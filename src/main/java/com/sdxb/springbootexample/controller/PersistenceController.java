@@ -37,7 +37,7 @@ public class PersistenceController {
             connection.close();
             return new ResponseEntity<>("Created", HttpStatus.OK);
         } catch (SQLException e) {
-            return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Database Error, please try later", HttpStatus.OK);
         }
     }
 
