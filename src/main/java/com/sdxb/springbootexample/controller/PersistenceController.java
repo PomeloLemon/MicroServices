@@ -82,8 +82,8 @@ public class PersistenceController {
                     + "TargetAmount = " + fgoal.getTargetAmount() + ","
                     + "CurrentAmount = " + fgoal.getCurrentAmount() + ","
                     + "StartDate = '" + fgoal.getStartDate() + "',"
-                    + "EndDate = '" + fgoal.getEndDate() + "'"
-                    + "WHERE GoalID = " + fgoal.getGoalId() + ","
+                    + "EndDate = '" + fgoal.getEndDate() + "' "
+                    + "WHERE GoalID = " + fgoal.getGoalId() + " "
                     + "AND UserID = '" + fgoal.getUserId() + "';");
             return new ResponseEntity<>("Updated", HttpStatus.OK);
         } catch (SQLException e) {
@@ -91,17 +91,15 @@ public class PersistenceController {
         }
     }
 
-    @GetMapping("/deleteGoal/{Ids}")
-    public ResponseEntity<String> deleteGoal(@PathVariable String Ids) {
+    @GetMapping("/deleteGoal/{goal}")
+    public ResponseEntity<String> deleteGoal(@PathVariable String goal) {
         try {
-            Type StringList = new TypeToken<ArrayList<String>>() {
-            }.getType();
-            List<String> IdList = new Gson().fromJson(Ids, StringList);
+            FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
             Statement statement = connection.createStatement();
             statement.execute("DELETE FROM FinancialGoals WHERE " +
-                    "GoalID = " + Integer.parseInt(IdList.get(0)) + ", " +
-                    "AND UserID = '" + IdList.get(1) + "';");
+                    "GoalID = " + fgoal.getGoalId() + ", " +
+                    "AND UserID = '" + fgoal.getUserId() + "';");
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
