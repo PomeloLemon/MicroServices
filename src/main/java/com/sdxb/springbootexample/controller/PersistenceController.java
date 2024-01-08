@@ -9,13 +9,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ import java.util.List;
 public class PersistenceController {
 
     @GetMapping("/insertGoal/{goal}")
-    public ResponseEntity<String> createGoals(@PathVariable String goal) throws SQLException {
+    public ResponseEntity<String> createGoals(@PathVariable String goal) {
         try {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
@@ -97,9 +95,9 @@ public class PersistenceController {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
             Statement statement = connection.createStatement();
-            statement.execute("DELETE FROM FinancialGoals WHERE " +
-                    "GoalID = " + fgoal.getGoalId() + ", " +
-                    "AND UserID = '" + fgoal.getUserId() + "';");
+            statement.execute("DELETE FROM FinancialGoals WHERE "
+                    + "GoalID = " + fgoal.getGoalId() + " "
+                    + "AND UserID = '" + fgoal.getUserId() + "';");
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
