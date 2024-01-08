@@ -26,7 +26,7 @@ public class PersistenceController {
             FinancialGoal fgoal = new Gson().fromJson(goal, FinancialGoal.class);
             Connection connection = FinancialGoalsDB().getConnection();
             Statement statement = connection.createStatement();
-            statement.executeQuery("INSERT INTO FinancialGoals (UserID, Description, TargetAmount, CurrentAmount, StartDate, EndDate)"
+            statement.executeQuery("INSERT INTO FinancialGoals "
                     + "VALUES("
                     + "'" + fgoal.getUserId() + "',"
                     + "'" + fgoal.getDescription() + "',"
@@ -37,7 +37,7 @@ public class PersistenceController {
             connection.close();
             return new ResponseEntity<>("Created", HttpStatus.OK);
         } catch (SQLException e) {
-            return new ResponseEntity<>("Database Error, please try later", HttpStatus.OK);
+            return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
         }
     }
 
