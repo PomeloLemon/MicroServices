@@ -33,8 +33,8 @@ public class PersistenceController {
                     + "" + fgoal.getTargetAmount() + ","
                     + "" + fgoal.getCurrentAmount() + ","
                     + "'" + fgoal.getStartDate() + "',"
-                    + "'" + fgoal.getEndDate() + "'"
-                    + ");");
+                    + "'" + fgoal.getEndDate() + "');");
+            connection.close();
             return new ResponseEntity<>("Created", HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
@@ -63,6 +63,7 @@ public class PersistenceController {
                 );
                 list.add(fgoal);
             }
+            connection.close();
             return new ResponseEntity<>(new Gson().toJson(list), HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
@@ -83,6 +84,7 @@ public class PersistenceController {
                     + "EndDate = '" + fgoal.getEndDate() + "' "
                     + "WHERE GoalID = " + fgoal.getGoalId() + " "
                     + "AND UserID = '" + fgoal.getUserId() + "';");
+            connection.close();
             return new ResponseEntity<>("Updated", HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
@@ -98,6 +100,7 @@ public class PersistenceController {
             statement.execute("DELETE FROM FinancialGoals WHERE "
                     + "GoalID = " + fgoal.getGoalId() + " "
                     + "AND UserID = '" + fgoal.getUserId() + "';");
+            connection.close();
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
@@ -111,6 +114,7 @@ public class PersistenceController {
             Statement statement = connection.createStatement();
             statement.execute("DELETE FROM FinancialGoals WHERE " +
                     "UserID = '" + Id + "';");
+            connection.close();
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
         } catch (SQLException e) {
             return new ResponseEntity<>("Database Error, please try later", HttpStatus.BAD_REQUEST);
